@@ -140,6 +140,7 @@
 
         each(conf.screens, function(width) {
             if (w <= width) { pushClass("lt-" + width); }
+            else { pushClass("gt-" + width); } 
         });
 
         api.feature();

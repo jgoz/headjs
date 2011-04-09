@@ -80,7 +80,7 @@
 		/(msie) ([\w.]+)/.exec( ua ) ||
 		!/compatible/.test( ua ) && /(mozilla)(?:.*? rv:([\w.]+))?/.exec( ua ) || [];
 		
-	if (ua[1] == 'msie') { ua[1] = 'ie'; }
+	if (ua[1] == 'msie') { ua[1] = 'ie'; } 
 	pushClass(ua[1]);
 	
 	api.browser = { version: ua[2] };
@@ -124,13 +124,14 @@
 		var w = window.outerWidth || html.clientWidth;
 		
 		// remove earlier widths
-		html.className = html.className.replace(/ (w|lt)-\d+/g, "");
+		html.className = html.className.replace(/ (w|lt|gt)-\d+/g, "");
 		
 		// add new ones
 		pushClass("w-" + Math.round(w / 100) * 100);
 		
 		each(conf.screens, function(width) {
 			if (w <= width) { pushClass("lt-" + width); } 
+      else { pushClass("gt-" + width); } 
 		});
 		
 		api.feature();
@@ -614,8 +615,18 @@
 			}
 		});
 		
-		// http://javascript.nwbox.com/IEContentLoaded/
-		if (window.frameElement == null && head.doScroll) {
+		/* // http://javascript.nwbox.com/IEContentLoaded/ */
+		
+		// avoid frames with different domains issue
+		var frameElement = 1;
+		
+		try {
+			frameElement = window.frameElement;
+			
+		} catch(e) {}
+		
+		
+		if (!frameElement && head.doScroll) {
 			
 			(function() { 
 				try {

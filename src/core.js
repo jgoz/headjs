@@ -124,13 +124,14 @@
 		var w = window.outerWidth || html.clientWidth;
 		
 		// remove earlier widths
-		html.className = html.className.replace(/ (w|lt)-\d+/g, "");
+		html.className = html.className.replace(/ (w|lt|gt)-\d+/g, "");
 		
 		// add new ones
 		pushClass("w-" + Math.round(w / 100) * 100);
 		
 		each(conf.screens, function(width) {
 			if (w <= width) { pushClass("lt-" + width); } 
+      else { pushClass("gt-" + width); } 
 		});
 		
 		api.feature();

@@ -121,7 +121,7 @@
 	
 	// screen resolution: w-100, lt-480, lt-1024 ...
 	function screenSize() {
-		var w = window.outerWidth || html.clientWidth;
+		var w = window.innerWidth || html.clientWidth;
 		
 		// remove earlier widths
 		html.className = html.className.replace(/ (w|lt|gt)-\d+/g, "");
